@@ -29,6 +29,9 @@ const tabs: Tab[] = [
   { id: 'foco', label: 'Foco', icon: TimerReset },
 ]
 
+const brandLogo = `${import.meta.env.BASE_URL}brand/logo.png`
+const brandSymbol = `${import.meta.env.BASE_URL}brand/symbol.png`
+
 const faqs = [
   {
     question: 'O que já existe no aplicativo?',
@@ -80,7 +83,7 @@ function App() {
               alt="LembrAI"
               className="h-auto w-[118px]"
               height="39"
-              src="/brand/logo.png"
+              src={brandLogo}
               width="144"
             />
           </a>
@@ -315,7 +318,7 @@ function App() {
         </section>
 
         <section className="overflow-hidden bg-[#f0f4fb] px-4 py-20 text-center sm:py-28">
-          <img alt="" className="mx-auto h-auto w-14" height="74" src="/brand/symbol.png" width="68" />
+          <img alt="" className="mx-auto h-auto w-14" height="74" src={brandSymbol} width="68" />
           <h2 className="mx-auto mt-7 max-w-3xl text-[clamp(2.65rem,5.6vw,5.4rem)] font-[650] leading-[0.96] tracking-[-0.07em] text-[#172033]">
             Um dia de cada vez. Um espaço só seu.
           </h2>
@@ -334,7 +337,7 @@ function App() {
 
       <footer className="mx-auto w-[min(1180px,calc(100%-2rem))] py-10">
         <div className="flex flex-col gap-8 border-b border-[#e4eaf2] pb-8 sm:flex-row sm:items-center sm:justify-between">
-          <img alt="LembrAI" className="h-auto w-[118px]" height="39" src="/brand/logo.png" width="144" />
+          <img alt="LembrAI" className="h-auto w-[118px]" height="39" src={brandLogo} width="144" />
           <p className="text-sm leading-6 text-[#5f6d80]">
             Um espaço para a sua rotina.<br />Mais presença no seu dia.
           </p>
@@ -370,7 +373,7 @@ function Phone({
           <span>▮▮▮</span>
         </div>
         <div className="flex items-center justify-between border-b border-[#e8edf5] px-4 pb-3 pt-1">
-          <img alt="LembrAI" className="h-auto w-[99px]" height="28" src="/brand/logo.png" width="103" />
+          <img alt="LembrAI" className="h-auto w-[99px]" height="28" src={brandLogo} width="103" />
           <span className="grid size-7 place-items-center rounded-full bg-[#e4eafe] text-[11px] text-[#4b48a4]">J</span>
         </div>
         <div className="min-h-[420px] px-4 pb-3 pt-5">
