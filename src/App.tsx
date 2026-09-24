@@ -138,6 +138,8 @@ function App() {
   const [screen, setScreen] = useState<Screen>('inicio')
   const [profile, setProfile] = useState<Profile>('tdah')
   const [heroRef, heroInView] = useInView<HTMLElement>({ once: false })
+  const [demoRef, demoInView] = useInView<HTMLDivElement>({ once: false, threshold: 0.2 })
+  const [reminderRef, reminderInView] = useInView<HTMLDivElement>({ once: false, threshold: 0.35 })
   const [signupRef, signupInView] = useInView<HTMLElement>({ once: false })
 
   const goToSignup = (nextProfile?: Profile) => {
@@ -145,7 +147,7 @@ function App() {
     document.getElementById('inscricao')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
   }
 
-  const showStickyCta = !heroInView && !signupInView
+  const showStickyCta = !heroInView && !demoInView && !reminderInView && !signupInView
 
   return (
     <div className="min-h-screen overflow-x-clip bg-[#fbfcff] text-[#172033]">
@@ -190,7 +192,7 @@ function App() {
         </div>
 
         {menuOpen && (
-          <nav aria-label="Navegação móvel" className="border-t border-[#172033]/[0.07] bg-white px-4 py-4 lg:hidden" id="menu-mobile">
+          <nav aria-label="Navegação móvel" className="max-h-[calc(100dvh-4.75rem)] overflow-y-auto border-t border-[#172033]/[0.07] bg-white px-4 py-4 lg:hidden" id="menu-mobile">
             <div className="mx-auto grid w-[min(1180px,100%)] gap-1">
               {navLinks.map(([label, href]) => (
                 <a
@@ -249,8 +251,9 @@ function App() {
 
           <div
             aria-label="Demonstração do aplicativo"
-            className="relative mx-auto mt-14 flex min-h-[690px] w-full flex-col items-center sm:mt-16 lg:flex-row lg:items-start lg:justify-center"
+            className="relative mx-auto mt-12 flex w-full flex-col items-center px-4 sm:mt-16 lg:min-h-[690px] lg:flex-row lg:items-start lg:justify-center lg:px-0"
             id="demonstracao"
+            ref={demoRef}
           >
             <div className="absolute left-1/2 top-24 -z-10 h-[320px] w-[min(94vw,980px)] -translate-x-1/2 rounded-[50%] border border-[#d9e4f6]" />
             <div className="absolute left-1/2 top-36 -z-10 h-[475px] w-[min(106vw,1220px)] -translate-x-1/2 -rotate-6 rounded-[50%] border border-[#e4ebf7]" />
@@ -272,11 +275,11 @@ function App() {
             <Phone screen={screen} setScreen={setScreen} />
           </div>
 
-          <p className="-mt-8 text-center text-xs text-[#738099] sm:mt-0">
+          <p className="mx-auto mt-6 max-w-xs px-4 text-center text-xs leading-5 text-[#738099]">
             Toque nas abas do celular para explorar. Telas ilustrativas com dados fictícios.
           </p>
 
-          <div className="mx-auto mt-10 grid w-[min(1180px,calc(100%-2rem))] grid-cols-2 gap-x-4 gap-y-5 border-y border-[#e4eaf2] py-7 text-left text-xs font-medium text-[#5f6d80] sm:grid-cols-4 sm:text-sm">
+          <div className="mx-auto mt-8 grid w-[min(1180px,calc(100%-2rem))] grid-cols-1 gap-x-4 gap-y-4 border-y border-[#e4eaf2] py-6 text-left text-sm font-medium text-[#5f6d80] min-[400px]:grid-cols-2 sm:mt-10 sm:grid-cols-4 sm:py-7">
             <FeatureStrip icon={BellRing} label="Lembretes inteligentes" />
             <FeatureStrip icon={Split} label="Tarefas em passos" />
             <FeatureStrip icon={TimerReset} label="Modo foco" />
@@ -332,7 +335,9 @@ function App() {
               </div>
             </div>
             <Reveal delay={120}>
-              <SmartReminderDemo />
+              <div ref={reminderRef}>
+                <SmartReminderDemo />
+              </div>
             </Reveal>
           </div>
         </section>
@@ -509,7 +514,7 @@ function App() {
         </section>
       </main>
 
-      <footer className="mx-auto w-[min(1180px,calc(100%-2rem))] py-10 pb-28 lg:pb-10">
+      <footer className="mx-auto w-[min(1180px,calc(100%-2rem))] py-10 pb-[calc(7.5rem+env(safe-area-inset-bottom))] lg:pb-10">
         <div className="flex flex-col gap-8 border-b border-[#e4eaf2] pb-8 sm:flex-row sm:items-center sm:justify-between">
           <img alt="LembrAI" className="h-auto w-[118px]" height="39" src={brandLogo} width="144" />
           <p className="text-sm leading-6 text-[#5f6d80]">
@@ -532,7 +537,7 @@ function App() {
 
       <div
         aria-hidden={!showStickyCta}
-        className={`fixed inset-x-3 bottom-3 z-40 transition duration-300 lg:hidden ${showStickyCta ? 'translate-y-0 opacity-100' : 'pointer-events-none translate-y-6 opacity-0'}`}
+        className={`fixed inset-x-3 z-40 transition duration-300 lg:hidden bottom-[max(0.75rem,env(safe-area-inset-bottom))] ${showStickyCta ? 'translate-y-0 opacity-100' : 'pointer-events-none translate-y-6 opacity-0'}`}
       >
         <button
           className="flex min-h-14 w-full items-center justify-between gap-3 rounded-full bg-[#172033] py-2 pl-5 pr-2 text-left text-sm font-semibold text-white shadow-[0_20px_40px_-18px_rgba(23,32,51,0.8)]"

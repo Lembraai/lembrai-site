@@ -33,7 +33,7 @@ export function WeeklyReport() {
     <div className="mx-auto w-full max-w-[560px]">
       <div
         aria-label="Escolha a visão do relatório"
-        className="mx-auto flex w-fit rounded-full border border-[#dfe7f2] bg-white p-1 shadow-[0_10px_30px_-22px_rgba(23,32,51,0.6)]"
+        className="mx-auto flex w-full flex-col gap-1 rounded-[22px] border border-[#dfe7f2] bg-white p-1 shadow-[0_10px_30px_-22px_rgba(23,32,51,0.6)] min-[420px]:w-fit min-[420px]:flex-row min-[420px]:gap-0 min-[420px]:rounded-full"
         role="group"
       >
         {(
@@ -44,7 +44,7 @@ export function WeeklyReport() {
         ).map(([id, label]) => (
           <button
             aria-pressed={view === id}
-            className={`min-h-10 rounded-full px-4 text-sm font-semibold transition ${view === id ? 'bg-[#172033] text-white' : 'text-[#5f6d80] hover:text-[#172033]'}`}
+            className={`min-h-11 rounded-2xl px-4 text-sm font-semibold transition min-[420px]:min-h-10 min-[420px]:rounded-full ${view === id ? 'bg-[#172033] text-white' : 'text-[#5f6d80] hover:text-[#172033]'}`}
             key={id}
             onClick={() => setView(id)}
             type="button"
@@ -58,7 +58,7 @@ export function WeeklyReport() {
         aria-live="polite"
         className="mt-6 overflow-hidden rounded-[30px] border border-[#e1e9f4] bg-white shadow-[0_34px_70px_-36px_rgba(40,60,110,0.5)]"
       >
-        <header className="flex items-center justify-between gap-4 border-b border-[#edf1f6] px-5 py-4 sm:px-7">
+        <header className="flex flex-col items-start gap-3 border-b border-[#edf1f6] px-5 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-7">
           <div>
             <p className="text-[11px] font-semibold uppercase tracking-[0.1em] text-[#8190a6]">
               {professional ? 'Paciente · Julia M.' : 'Seu resumo semanal'}

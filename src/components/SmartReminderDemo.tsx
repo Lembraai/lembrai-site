@@ -54,7 +54,7 @@ export function SmartReminderDemo() {
               <DemoButton onClick={() => setState('done')} primary>
                 <Check size={17} /> Feito
               </DemoButton>
-              <div className="grid gap-2.5 min-[420px]:grid-cols-2">
+              <div className="grid gap-2.5 sm:grid-cols-2">
                 <DemoButton onClick={() => setState('snoozing')}>
                   <AlarmClock size={17} /> Adiar
                 </DemoButton>

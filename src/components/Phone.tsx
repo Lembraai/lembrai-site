@@ -13,7 +13,7 @@ const brandLogo = `${import.meta.env.BASE_URL}brand/logo.png`
 
 export function Phone({ screen, setScreen }: { screen: Screen; setScreen: (screen: Screen) => void }) {
   return (
-    <div className="relative w-[304px] rounded-[43px] bg-[linear-gradient(135deg,#e5ebf5_0%,#718098_24%,#f2f5fa_52%,#8794a9_100%)] p-[7px] shadow-[0_38px_65px_-28px_rgba(34,52,89,0.7),0_8px_18px_rgba(34,52,89,0.14)] sm:w-[330px]">
+    <div className="relative w-[min(304px,100%)] rounded-[43px] bg-[linear-gradient(135deg,#e5ebf5_0%,#718098_24%,#f2f5fa_52%,#8794a9_100%)] p-[7px] shadow-[0_38px_65px_-28px_rgba(34,52,89,0.7),0_8px_18px_rgba(34,52,89,0.14)] sm:w-[330px]">
       <div className="overflow-hidden rounded-[37px] border-[3px] border-[#1e2634] bg-[#f8faff]">
         <div className="relative flex h-9 items-center justify-between px-5 text-[10px] font-bold text-[#1e2634]">
           <span>9:41</span>
