@@ -25,12 +25,9 @@ import { Phone, type Screen } from './components/Phone'
 import { ReminderTicker } from './components/ReminderTicker'
 import { Reveal } from './components/Reveal'
 import { SmartReminderDemo } from './components/SmartReminderDemo'
-import { WaitlistForm, type Profile } from './components/WaitlistForm'
 import { WeeklyReport } from './components/WeeklyReport'
-import { useInView } from './hooks'
 
 const brandLogo = `${import.meta.env.BASE_URL}brand/logo.png`
-const brandSymbol = `${import.meta.env.BASE_URL}brand/symbol.png`
 
 const navLinks = [
   ['Lembretes', '#lembretes'],
@@ -109,7 +106,7 @@ const faqs = [
   {
     question: 'Quando vou poder usar o aplicativo?',
     answer:
-      'O LembrAI está em desenvolvimento e validação. Quem entra na lista de espera recebe o convite para o acesso antecipado primeiro, por e-mail.',
+      'O LembrAI está em desenvolvimento e validação. Ainda não há versão pública disponível.',
   },
   {
     question: 'Meu psicólogo vai ver tudo o que eu registrar?',
@@ -124,7 +121,7 @@ const faqs = [
   {
     question: 'Sou psicólogo. Como funciona para mim?',
     answer:
-      'Você recebe, com o consentimento do paciente, um resumo semanal com adesão aos lembretes, humor, foco e os temas que ele marcou para a sessão. Inscreva-se como profissional para participar da validação.',
+      'Você recebe, com o consentimento do paciente, um resumo semanal com adesão aos lembretes, humor, foco e os temas que ele marcou para a sessão.',
   },
   {
     question: 'O LembrAI substitui terapia ou medicação?',
@@ -136,18 +133,6 @@ const faqs = [
 function App() {
   const [menuOpen, setMenuOpen] = useState(false)
   const [screen, setScreen] = useState<Screen>('inicio')
-  const [profile, setProfile] = useState<Profile>('tdah')
-  const [heroRef, heroInView] = useInView<HTMLElement>({ once: false })
-  const [demoRef, demoInView] = useInView<HTMLDivElement>({ once: false, threshold: 0.2 })
-  const [reminderRef, reminderInView] = useInView<HTMLDivElement>({ once: false, threshold: 0.35 })
-  const [signupRef, signupInView] = useInView<HTMLElement>({ once: false })
-
-  const goToSignup = (nextProfile?: Profile) => {
-    if (nextProfile) setProfile(nextProfile)
-    document.getElementById('inscricao')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
-  }
-
-  const showStickyCta = !heroInView && !demoInView && !reminderInView && !signupInView
 
   return (
     <div className="min-h-screen overflow-x-clip bg-[#fbfcff] text-[#172033]">
@@ -174,9 +159,9 @@ function App() {
 
           <a
             className="hidden items-center gap-2 rounded-full bg-[#006bd6] px-4 py-2.5 text-sm font-semibold text-white shadow-[0_10px_28px_-12px_rgba(0,107,214,0.75)] transition hover:-translate-y-0.5 hover:bg-[#005bb7] lg:inline-flex"
-            href="#inscricao"
+            href="#demonstracao"
           >
-            Quero acesso antecipado <ArrowDownRight aria-hidden="true" size={16} />
+            Explorar o aplicativo <ArrowDownRight aria-hidden="true" size={16} />
           </a>
 
           <button
@@ -206,10 +191,10 @@ function App() {
               ))}
               <a
                 className="mt-2 flex items-center justify-between rounded-2xl bg-[#006bd6] px-4 py-3 text-sm font-semibold text-white"
-                href="#inscricao"
+                href="#demonstracao"
                 onClick={() => setMenuOpen(false)}
               >
-                Quero acesso antecipado <ArrowDownRight aria-hidden="true" size={17} />
+                Explorar o aplicativo <ArrowDownRight aria-hidden="true" size={17} />
               </a>
             </div>
           </nav>
@@ -217,12 +202,12 @@ function App() {
       </header>
 
       <main id="conteudo">
-        <section className="relative isolate overflow-hidden pt-14 sm:pt-20 lg:pt-24" id="inicio" ref={heroRef}>
+        <section className="relative isolate overflow-hidden pt-14 sm:pt-20 lg:pt-24" id="inicio">
           <div className="absolute inset-x-0 top-[26rem] -z-10 h-[30rem] bg-[radial-gradient(ellipse_at_center,rgba(205,220,255,0.7),transparent_65%)]" />
           <div className="mx-auto w-[min(1180px,calc(100%-2rem))] text-center">
             <p className="fade-up inline-flex items-center gap-2 rounded-full border border-[#dce8fa] bg-white px-3.5 py-2 text-xs font-semibold text-[#526078] shadow-[0_8px_25px_-20px_rgba(23,32,51,0.7)]">
               <span className="pulse-dot size-1.5 rounded-full bg-[#006bd6]" />
-              Pensado para quem vive com TDAH<span className="hidden sm:inline"> · Lista de espera aberta</span>
+              Pensado para quem vive com TDAH
             </p>
             <h1 className="fade-up mx-auto text-balance mt-6 max-w-[980px] text-[clamp(2.9rem,7.6vw,6.75rem)] font-[650] leading-[0.95] tracking-[-0.07em] text-[#172033] [animation-delay:80ms]">
               Seu cérebro não precisa <span className="text-gradient">lembrar de tudo.</span>
@@ -232,14 +217,13 @@ function App() {
               resumo da sua semana para levar à terapia.
             </p>
             <div className="fade-up mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-5 [animation-delay:240ms]">
-              <button
+              <a
                 className="group inline-flex min-h-12 items-center justify-center gap-3 rounded-full bg-[#006bd6] px-6 text-sm font-semibold text-white shadow-[0_15px_34px_-14px_rgba(0,107,214,0.8)] transition hover:-translate-y-0.5 hover:bg-[#005bb7] active:translate-y-0"
-                onClick={() => goToSignup()}
-                type="button"
+                href="#demonstracao"
               >
-                Quero acesso antecipado
+                Explorar o aplicativo
                 <ArrowRight aria-hidden="true" className="transition group-hover:translate-x-0.5" size={18} />
-              </button>
+              </a>
               <a
                 className="inline-flex min-h-12 items-center gap-2 text-sm font-semibold text-[#006bd6] hover:underline hover:underline-offset-4"
                 href="#lembretes"
@@ -253,7 +237,6 @@ function App() {
             aria-label="Demonstração do aplicativo"
             className="relative mx-auto mt-12 flex w-full flex-col items-center px-4 sm:mt-16 lg:min-h-[690px] lg:flex-row lg:items-start lg:justify-center lg:px-0"
             id="demonstracao"
-            ref={demoRef}
           >
             <div className="absolute left-1/2 top-24 -z-10 h-[320px] w-[min(94vw,980px)] -translate-x-1/2 rounded-[50%] border border-[#d9e4f6]" />
             <div className="absolute left-1/2 top-36 -z-10 h-[475px] w-[min(106vw,1220px)] -translate-x-1/2 -rotate-6 rounded-[50%] border border-[#e4ebf7]" />
@@ -335,9 +318,7 @@ function App() {
               </div>
             </div>
             <Reveal delay={120}>
-              <div ref={reminderRef}>
-                <SmartReminderDemo />
-              </div>
+              <SmartReminderDemo />
             </Reveal>
           </div>
         </section>
@@ -404,14 +385,13 @@ function App() {
                 Acompanhe pacientes com TDAH entre as sessões com um relatório semanal autorizado por eles. Menos tempo
                 reconstruindo a semana, mais tempo para o que importa.
               </p>
-              <button
+              <a
                 className="group mt-8 inline-flex min-h-12 items-center gap-3 rounded-full bg-white px-6 text-sm font-semibold text-[#17243c] transition hover:-translate-y-0.5 hover:bg-[#e8efff]"
-                onClick={() => goToSignup('psicologo')}
-                type="button"
+                href="#relatorio"
               >
-                Quero participar como profissional
+                Ver o relatório semanal
                 <ArrowRight aria-hidden="true" className="transition group-hover:translate-x-0.5" size={18} />
-              </button>
+              </a>
             </Reveal>
             <div className="grid gap-4 self-center sm:grid-cols-2">
               {[
@@ -483,38 +463,9 @@ function App() {
             </div>
           </div>
         </section>
-
-        <section
-          className="relative isolate overflow-hidden bg-[#f0f4fb] px-4 py-24 sm:py-32"
-          id="inscricao"
-          ref={signupRef}
-        >
-          <div className="absolute left-1/2 top-0 -z-10 h-[34rem] w-[60rem] -translate-x-1/2 bg-[radial-gradient(ellipse_at_center,rgba(0,107,214,0.12),transparent_65%)]" />
-          <div className="mx-auto grid w-[min(1180px,100%)] items-center gap-12 lg:grid-cols-[0.85fr_1.15fr] lg:gap-20">
-            <Reveal>
-              <img alt="" className="h-auto w-14" height="74" src={brandSymbol} width="68" />
-              <p className="mt-6 text-sm font-semibold text-[#62718a]">Acesso antecipado</p>
-              <h2 className="mt-4 text-[clamp(2.5rem,5vw,4.8rem)] font-[650] leading-[0.96] tracking-[-0.07em] text-[#172033]">
-                Entre na lista. A gente lembra de te chamar.
-              </h2>
-              <p className="mt-6 max-w-md text-base leading-7 text-[#5f6d80] sm:text-lg">
-                Estamos abrindo o LembrAI aos poucos. Inscreva-se para testar antes de todo mundo e ajudar a construir um
-                app feito para cérebros com TDAH.
-              </p>
-              <ul className="mt-8 grid gap-3 text-sm text-[#36435a]">
-                <CheckItem>Convite para o acesso antecipado por e-mail</CheckItem>
-                <CheckItem>Sua opinião entra direto nas próximas versões</CheckItem>
-                <CheckItem>Psicólogos participam da validação do relatório</CheckItem>
-              </ul>
-            </Reveal>
-            <Reveal delay={120}>
-              <WaitlistForm onProfileChange={setProfile} profile={profile} />
-            </Reveal>
-          </div>
-        </section>
       </main>
 
-      <footer className="mx-auto w-[min(1180px,calc(100%-2rem))] py-10 pb-[calc(7.5rem+env(safe-area-inset-bottom))] lg:pb-10">
+      <footer className="mx-auto w-[min(1180px,calc(100%-2rem))] py-10">
         <div className="flex flex-col gap-8 border-b border-[#e4eaf2] pb-8 sm:flex-row sm:items-center sm:justify-between">
           <img alt="LembrAI" className="h-auto w-[118px]" height="39" src={brandLogo} width="144" />
           <p className="text-sm leading-6 text-[#5f6d80]">
@@ -524,9 +475,9 @@ function App() {
           </p>
           <a
             className="inline-flex items-center gap-2 text-sm font-semibold text-[#006bd6] hover:underline hover:underline-offset-4"
-            href="#inscricao"
+            href="#demonstracao"
           >
-            Entrar na lista <ArrowRight aria-hidden="true" size={16} />
+            Ver demonstrações <ArrowRight aria-hidden="true" size={16} />
           </a>
         </div>
         <div className="flex flex-col gap-3 pt-6 text-xs text-[#738099] sm:flex-row sm:justify-between">
@@ -534,26 +485,6 @@ function App() {
           <p>Aplicativo em desenvolvimento. Não substitui acompanhamento profissional.</p>
         </div>
       </footer>
-
-      <div
-        aria-hidden={!showStickyCta}
-        className={`fixed inset-x-3 z-40 transition duration-300 lg:hidden bottom-[max(0.75rem,env(safe-area-inset-bottom))] ${showStickyCta ? 'translate-y-0 opacity-100' : 'pointer-events-none translate-y-6 opacity-0'}`}
-      >
-        <button
-          className="flex min-h-14 w-full items-center justify-between gap-3 rounded-full bg-[#172033] py-2 pl-5 pr-2 text-left text-sm font-semibold text-white shadow-[0_20px_40px_-18px_rgba(23,32,51,0.8)]"
-          onClick={() => goToSignup()}
-          tabIndex={showStickyCta ? 0 : -1}
-          type="button"
-        >
-          <span>
-            <span className="block text-[11px] font-medium text-[#aebbd3]">Lista de espera aberta</span>
-            Quero acesso antecipado
-          </span>
-          <span className="grid size-10 place-items-center rounded-full bg-[#006bd6]">
-            <ArrowRight aria-hidden="true" size={18} />
-          </span>
-        </button>
-      </div>
     </div>
   )
 }
