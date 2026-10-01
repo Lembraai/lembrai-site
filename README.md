@@ -13,6 +13,17 @@ npm run dev
 
 Cada push para `main` executa o workflow em `.github/workflows/deploy-pages.yml` e publica a versão de produção no GitHub Pages.
 
+O workflow verifica o código e usa o caminho informado pelo próprio GitHub Pages para gerar os arquivos. Assim, imagens, ícones, CSS e JavaScript funcionam tanto em `https://lembraai.github.io/lembrai-site/` quanto na raiz de um domínio personalizado, sem manter configurações diferentes.
+
+Para conferir os dois caminhos localmente:
+
+```sh
+PAGES_BASE_PATH=/lembrai-site npm run build
+PAGES_BASE_PATH= npm run build
+```
+
+O domínio personalizado deve ser configurado em Settings → Pages antes de alterar o DNS. A publicação no novo endereço só está concluída depois de validar o DNS, o certificado HTTPS e os arquivos do site pela URL pública.
+
 ## Conteúdo
 
 O site apresenta o LembrAI para pessoas com TDAH, com foco em lembretes inteligentes, tarefas divididas em passos, modo foco e relatório semanal compartilhável com o psicólogo mediante consentimento. O aplicativo está identificado como em desenvolvimento; as telas usam dados fictícios.
@@ -28,10 +39,4 @@ A seção `#inscricao` coleta nome, e-mail, perfil, interesses e consentimento. 
 
 Sem nenhuma das duas, o formulário informa que as inscrições abrem em breve e não envia dados.
 
-Para ativar, além de criar a variável, repasse-a no passo `Build site` de `.github/workflows/deploy-pages.yml`:
-
-```yaml
-        env:
-          VITE_WAITLIST_ENDPOINT: ${{ vars.VITE_WAITLIST_ENDPOINT }}
-          VITE_WAITLIST_EMAIL: ${{ vars.VITE_WAITLIST_EMAIL }}
-```
+O workflow já repassa as duas variáveis ao build. Após criar ou atualizar uma variável, execute novamente a publicação para que a configuração entre no site. Não use essas variáveis para segredos: os valores `VITE_` fazem parte do código público enviado ao navegador.
