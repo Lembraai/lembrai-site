@@ -2,7 +2,7 @@ name: Deploy GitHub Pages
 
 on:
   push:
-    branches: [main]
+    branches: [chore/site-dominio-personalizado]
   workflow_dispatch:
 
 permissions:
@@ -50,6 +50,7 @@ jobs:
           path: ./dist
 
   deploy:
+    if: github.ref == 'refs/heads/chore/site-dominio-personalizado'
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
